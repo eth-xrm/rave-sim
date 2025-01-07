@@ -2,7 +2,7 @@
 
 # RAVE SIM: Really big/fast wAVE SIMulation
 
-Framework as published in Optics Express DOI
+Framework as published in Optics Express DOI: https://doi.org/10.1364/OE.543500
 
 Framework contains code for Pascal Sommer's master thesis as well as Alexandre Vieira Pereira's and Simon Spindler's PhD theses.
 
