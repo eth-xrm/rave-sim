@@ -1,0 +1,12 @@
+# Copyright (c) 2024, ETH Zurich
+
+energy: 46000.0
+
+source:
+  type: point
+  x: 0.0
+  z: 0.0
+
+deltabeta_table:
+  - [["Si", 2.34], [2.2888e-7, 2.5847e-10]]
+  - [["Au", 19.32], [1.4981e-6, 3.6174e-8]]

@@ -1,0 +1,66 @@
+# Copyright (c) 2024, ETH Zurich
+
+sim_params:
+  N: 8192
+  dx: 8e-10
+  z_detector: 1.77
+
+  # total size of the detector in the x direction in metres
+  detector_size: 5e-4
+  
+  # The pixel size in x is relevant for the downsampling in the simulation. The y size
+  # is just used as a scaling factor in the end. We separate these two out because if
+  # we just had one size paramter then it might not be intuitively clear to the user
+  # whether the intensity should scale linearly or quadratically with the pixel size.
+  detector_pixel_size_x: 1e-5
+  detector_pixel_size_y: 1e-5
+  chunk_size: 10469376
+
+# Store the vectors on disk and only load small chunks into RAM. This allows for
+# vectors that exceed the available RAM size.
+use_disk_vector: True
+
+# Keep the entire u vector at z=z_detector for every source point.
+# This is not compatible with phase stepping.
+save_final_u_vectors: False
+
+# The precision for the calculation, either c8 or c16 (two floats or two
+# doulbes per complex number).
+dtype: c8
+
+multisource:
+  type: points
+  energy_range: [46000.0, 47000.0]
+  x_range: [0.0, 1e-4]
+  z: 0
+  nr_source_points: 100
+  seed: 1
+  # The spectrum is optional. If no spectrum is given, then the energies for the
+  # photons will be picked uniformly at random.
+  # spectrum: "path/to/spectrum.h5"
+
+# multisource:
+#   type: vectors
+#   base_sim_dir: "/path/to/sim"
+#   input_u_index: 0
+
+elements:
+  - type: grating
+    pitch: 4.2e-6
+    dc: [0.5, 0.5]
+    z_start: 0.1
+    thickness: 140e-6
+    nr_steps: 1
+    x_positions: [0.0]
+    substrate_thickness: 230e-6
+    mat_a: ["Si", 2.34]
+    mat_b: ["Au", 19.32]
+    mat_substrate: ["Si", 2.34]
+
+  - type: sample
+    z_start: 1.0
+    pixel_size_x: 10e-6
+    pixel_size_z: 10000e-6
+    grid_path: "asdf.npy"
+    materials: [["Si", 2.34], ["Au", 19.32]]
+    x_positions: [0.0]
