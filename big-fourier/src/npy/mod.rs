@@ -1,4 +1,4 @@
-/// Copyright (c) 2024, ETH Zurich
+//! Copyright (c) 2024, ETH Zurich
 
 //! Working with NPY files
 //!
