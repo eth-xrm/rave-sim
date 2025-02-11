@@ -22,4 +22,3 @@ Example notebooks such as the notebooks to generate the results from the publica
 * `big-wave` implements an out-of-core wave simulation using the big fourier library.
 * `fast-wave` uses the GPU to run simulations as fast as possible.
 * `nist_lookup` is a third party library to look up material properties.
-* `analysis` experiment setups and evaluations about performance and other properties.
