@@ -100,8 +100,8 @@ def parse_optical_element(
             mat_b=parse_optional_material(dct, "mat_b"),
             mat_substrate=parse_optional_material(dct, "mat_substrate"),
         )
-    if dct["type"] == "env_grating":
-        return optical_element.EnvGrating(
+    if dct["type"] == "dba_grating":
+        return optical_element.dbaGrating(
             pitch0=get_float(dct, ["pitch0"]),
             pitch1=get_float(dct, ["pitch1"]),
             dc0=(get_float(dct, ["dc0", 0]), get_float(dct, ["dc0", 1])),
