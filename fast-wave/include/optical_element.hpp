@@ -16,7 +16,7 @@ struct Material {
 
 enum class OpticalElementType {
     Grating,
-    EnvGrating,
+    DBAGrating,
     Sample,
 };
 
@@ -47,7 +47,7 @@ struct Grating : public OpticalElement {
     std::size_t nr_history_entries() const override { return nr_steps; }
 };
 
-struct EnvGrating : public OpticalElement {
+struct DBAGrating : public OpticalElement {
     double thickness;
     double pitch0;
     double pitch1;
