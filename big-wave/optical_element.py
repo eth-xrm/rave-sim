@@ -225,7 +225,7 @@ class Grating(OpticalElement):
             )
 
 @dataclass
-class EnvGrating(OpticalElement):
+class DBAGrating(OpticalElement):
     """Description of a grating. A higher duty cycle corresponds to using more of material A"""
 
     pitch0: float # small pitch
@@ -269,7 +269,7 @@ class EnvGrating(OpticalElement):
             z_fraction = i / self.nr_steps
 
             def modifier(idx: int, chunk: np.ndarray) -> None:
-                mask = generate_env_grating_chunk(
+                mask = generate_dba_grating_chunk(
                     sim_params.dx,
                     idx - sim_params.N // 2,
                     len(chunk),
@@ -356,11 +356,11 @@ def generate_grating_chunk(
     phase = np.mod(x / grating.pitch + dc / 2, 1)
     return phase < dc
 
-def generate_env_grating_chunk(
+def generate_dba_grating_chunk(
     dx: float,
     start: int,
     chunk_size: int,
-    grating: EnvGrating,
+    grating: DBAGrating,
     z_fraction: float,
     stepping_iteration: int,
 ) -> np.ndarray:
@@ -532,7 +532,7 @@ def collect_all_materials(
                 push(el.mat_b)
             if el.mat_substrate is not None:
                 push(el.mat_substrate)
-        if isinstance(el, EnvGrating):
+        if isinstance(el, DBAGrating):
             if el.mat_a is not None:
                 push(el.mat_a)
             if el.mat_b is not None:
