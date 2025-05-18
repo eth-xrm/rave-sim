@@ -21,7 +21,7 @@ __global__ void apply_grating_factors_kernel(DevComplex<S> *d_u, SimParams param
                                              double pitch, double dc, double x_position);
 
 template <typename S>
-__global__ void apply_env_grating_factors_kernel(DevComplex<S> *d_u, SimParams params,
+__global__ void apply_dba_grating_factors_kernel(DevComplex<S> *d_u, SimParams params,
                                              DevComplex<S> factor_a, DevComplex<S> factor_b,
                                              double pitch0, double pitch1, double dc0, double dc1, double x_position);
 
