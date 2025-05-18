@@ -16,7 +16,7 @@ using DeltabetaTable = std::vector<std::pair<Material, Complex<double>>>;
 
 [[nodiscard]] Grating parse_grating(const YAML::Node &node, const DeltabetaTable &db_table);
 
-[[nodiscard]] EnvGrating parse_envgrating(const YAML::Node &node, const DeltabetaTable &db_table);
+[[nodiscard]] DBAGrating parse_dbagrating(const YAML::Node &node, const DeltabetaTable &db_table);
 
 [[nodiscard]] Sample parse_sample(const YAML::Node &node, const DeltabetaTable &db_table,
                                   const fs::path &config_path);
