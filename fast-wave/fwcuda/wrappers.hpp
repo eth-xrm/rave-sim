@@ -19,7 +19,7 @@ void apply_grating_factors(DevComplex<S> *d_u, const SimParams &params, Complex<
                            Complex<S> factor_b, double pitch, double dc, double x_position);
 
 template <typename S>
-void apply_env_grating_factors(DevComplex<S> *d_u, const SimParams &params, Complex<S> factor_a,
+void apply_dba_grating_factors(DevComplex<S> *d_u, const SimParams &params, Complex<S> factor_a,
                            Complex<S> factor_b, double pitch0, double pitch1, double dc0, double dc1, double x_position);
 
 template <typename S>
