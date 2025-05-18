@@ -104,7 +104,7 @@ template <typename Key>
     return g;
 }
 
-[[nodiscard]] EnvGrating parse_envgrating(const YAML::Node &node, const DeltabetaTable &db_table) {
+[[nodiscard]] DBAGrating parse_dbagrating(const YAML::Node &node, const DeltabetaTable &db_table) {
     const auto z_start = get_scalar(node, "z_start");
     const auto dc0 = node["dc0"].as<std::array<double, 2>>();
     const auto dc1 = node["dc1"].as<std::array<double, 2>>();
@@ -119,10 +119,10 @@ template <typename Key>
     const auto deltabeta_b = parse_optional_material(node, "mat_b", db_table);
     const auto deltabeta_substrate = parse_optional_material(node, "mat_substrate", db_table);
 
-    EnvGrating e;
+    DBAGrating e;
     e.z_start = z_start;
     e.x_positions = std::move(x_positions);
-    e.type = OpticalElementType::EnvGrating;
+    e.type = OpticalElementType::DBAGrating;
     e.thickness = thickness;
     e.pitch0 = pitch0;
     e.pitch1 = pitch1;
@@ -173,8 +173,8 @@ template <typename Key>
     const auto type = node["type"].as<std::string>();
     if (type == "grating") {
         return std::make_unique<Grating>(parse_grating(node, db_table));
-    } else if (type == "env_grating") {
-        return std::make_unique<EnvGrating>(parse_envgrating(node, db_table));
+    } else if (type == "dba_grating") {
+        return std::make_unique<DBAGrating>(parse_dbagrating(node, db_table));
     } else if (type == "sample") {
         return std::make_unique<Sample>(parse_sample(node, db_table, sim_dir));
     } else {
