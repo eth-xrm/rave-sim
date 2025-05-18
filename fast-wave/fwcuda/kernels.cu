@@ -89,7 +89,7 @@ void apply_grating_factors(DevComplex<S> *d_u, const SimParams &params, Complex<
 }
 
 template <typename S>
-__global__ void apply_env_grating_factors_kernel(DevComplex<S> *d_u, SimParams params,
+__global__ void apply_dba_grating_factors_kernel(DevComplex<S> *d_u, SimParams params,
                                              DevComplex<S> factor_a, DevComplex<S> factor_b,
                                              double pitch0, double pitch1, double dc0, 
                                              double dc1, double x_position) {
@@ -108,10 +108,10 @@ __global__ void apply_env_grating_factors_kernel(DevComplex<S> *d_u, SimParams p
 }
 
 template <typename S>
-void apply_env_grating_factors(DevComplex<S> *d_u, const SimParams &params, Complex<S> factor_a,
+void apply_dba_grating_factors(DevComplex<S> *d_u, const SimParams &params, Complex<S> factor_a,
                            Complex<S> factor_b, double pitch0, double pitch1, 
                            double dc0, double dc1, double x_position) {
-    apply_env_grating_factors_kernel<S><<<params.N / 64, 64>>>(d_u, params, c2dc(factor_a),
+    apply_dba_grating_factors_kernel<S><<<params.N / 64, 64>>>(d_u, params, c2dc(factor_a),
                                                         c2dc(factor_b), pitch0, pitch1, dc0, dc1, x_position);
 }
 
@@ -249,7 +249,7 @@ template void propagate_convolve_step<float>(DevComplex<float> *, const SimParam
                                              double);
 template void apply_grating_factors<float>(DevComplex<float> *, const SimParams &,
                                            Complex<float>, Complex<float>, double, double, double);
-template void apply_env_grating_factors<float>(DevComplex<float> *, const SimParams &,
+template void apply_dba_grating_factors<float>(DevComplex<float> *, const SimParams &,
                                            Complex<float>, Complex<float>, double, double, double, double, double);
 template void apply_sample_factors<float>(DevComplex<float> *, const SimParams &, double, int8_t *,
                                           double, std::size_t, DevComplex<double> *, int, double);
@@ -267,7 +267,7 @@ template void propagate_convolve_step<double>(DevComplex<double> *, const SimPar
 template void apply_grating_factors<double>(DevComplex<double> *, const SimParams &,
                                             Complex<double>, Complex<double>, double, double,
                                             double);
-template void apply_env_grating_factors<double>(DevComplex<double> *, const SimParams &,
+template void apply_dba_grating_factors<double>(DevComplex<double> *, const SimParams &,
                                             Complex<double>, Complex<double>, double, double,
                                             double, double, double);
 template void apply_sample_factors<double>(DevComplex<double> *u, const SimParams &, double,
