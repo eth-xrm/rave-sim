@@ -150,7 +150,7 @@ void apply_grating(Grating g, DevComplex<S> *d_u, DevComplex<S> *d_U, SimParams 
 }
 
 template <typename S>
-void apply_envgrating(EnvGrating e, DevComplex<S> *d_u, DevComplex<S> *d_U, SimParams const &params,
+void apply_dbagrating(DBAGrating e, DevComplex<S> *d_u, DevComplex<S> *d_U, SimParams const &params,
                    FFT<S> const &fft, double cutoff_freq, std::size_t phase_step) {
     const double dz = e.thickness / e.nr_steps;
     const auto fac_a = Complex<S>(material_factor(e.deltabeta_a, dz, params.wl));
@@ -159,7 +159,7 @@ void apply_envgrating(EnvGrating e, DevComplex<S> *d_u, DevComplex<S> *d_U, SimP
         const S dc0 = e.dc0[0] + i * (e.dc0[1] - e.dc0[0]) / e.nr_steps;
         const S dc1 = e.dc1[0] + i * (e.dc1[1] - e.dc1[0]) / e.nr_steps;
 
-        apply_env_grating_factors<S>(d_u, params, fac_a, fac_b, e.pitch0, e.pitch1, dc0, dc1,
+        apply_dba_grating_factors<S>(d_u, params, fac_a, fac_b, e.pitch0, e.pitch1, dc0, dc1,
                                  e.x_positions[phase_step]);
         propagate<S>(params, fft, dz, cutoff_freq, d_u, d_U);
     }
@@ -216,8 +216,8 @@ void apply_optical_element(OpticalElement *el, DevComplex<S> *d_u, DevComplex<S>
         apply_grating<S>(*reinterpret_cast<Grating *>(el), d_u, d_U, params, fft, cutoff_freq,
                          phase_step);
         break;
-    case OpticalElementType::EnvGrating:
-        apply_envgrating<S>(*reinterpret_cast<EnvGrating *>(el), d_u, d_U, params, fft, cutoff_freq,
+    case OpticalElementType::DBAGrating:
+        apply_dbagrating<S>(*reinterpret_cast<DBAGrating *>(el), d_u, d_U, params, fft, cutoff_freq,
                          phase_step);
         break;
     case OpticalElementType::Sample:
